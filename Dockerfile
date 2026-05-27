@@ -1,6 +1,6 @@
 FROM tomcat:9.0-jdk11-corretto
+# 元々あったものを全て消す
 RUN rm -rf /usr/local/tomcat/webapps/*
-COPY BingoApp_01.war /usr/local/tomcat/webapps/ROOT.war
-# ここでTomcatの設定に「サーブレットへの正しい道順」を教え込みます
-ENV CATALINA_OPTS="-Dorg.apache.catalina.filters.ExpiresFilter.ALWAYS=true"
+# フォルダ名を「BingoApp」にして配置する（これならURLが .../BingoApp/admin.jsp になります）
+COPY BingoApp_01.war /usr/local/tomcat/webapps/BingoApp.war
 CMD ["catalina.sh", "run"]
