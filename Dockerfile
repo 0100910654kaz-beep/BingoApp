@@ -1,7 +1,6 @@
 FROM tomcat:9.0-jdk11-corretto
-# 既存のアプリを削除
 RUN rm -rf /usr/local/tomcat/webapps/*
-# WARファイルをROOTとしてコピー（これでURLの途中に名前が入らなくなります）
 COPY BingoApp_01.war /usr/local/tomcat/webapps/ROOT.war
-# Tomcatの起動
+# ここでTomcatの設定に「サーブレットへの正しい道順」を教え込みます
+ENV CATALINA_OPTS="-Dorg.apache.catalina.filters.ExpiresFilter.ALWAYS=true"
 CMD ["catalina.sh", "run"]
